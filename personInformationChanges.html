@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改人员信息</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <!--<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/plugins/vaildate/formValidation.css"/>
+    <link rel="stylesheet" type="text/css" href="css/plugins/vaildate/default.css">
+    <link rel="stylesheet" href="css/plugins/vaildate/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="css/plugins/vaildate/awesome-bootstrap-checkbox.css">
+
+    <link href="css/animate.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="col-*-12">
+    <div class="panel-body" style="padding-bottom: 0px">
+        <div class="panel panel-default">
+            <div class="panel-heading">基本信息修改</div>
+            <div class="panel-body">
+                <form class="form-horizontal m-t" id="signupForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" >姓名：</label>
+                        <div class="col-sm-8">
+                            <input id="user_real_name" name="user_real_name" type="text" class="form-control" placeholder="姓名" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" >角色：</label>
+                        <div class="col-sm-8">
+                            <input id="role" name="role"  type="text" class="form-control" placeholder="角色" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" >单位名：</label>
+                        <div class="col-sm-8">
+                            <input id="unit" name="unit"  type="text" class="form-control" placeholder="单位名" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" >手机号：</label>
+                        <div class="col-sm-8">
+                            <input id="user_tel" name="user_tel"  type="text" class="form-control" placeholder="手机号" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">性别：</label>
+                        <div class="col-lg-5">
+                            <div class="radio radio-primary" id="user_sex" >
+                                <div class="radio radio-inline">
+                                    <input type="radio" name="radio1" id="radio1" value="option1">
+                                    <label for="radio1">
+                                        男
+                                    </label>
+
+                                </div>
+                                <div class="radio radio-inline">
+
+                                    <input type="radio" name="radio1" id="radio2" value="option2">
+                                    <label for="radio2">
+                                        女
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">
+                            出生日期：</label>
+                        <div class="col-lg-5">
+                            <div class="input-group date" id="datetimePicker" >
+                                <input type="text" class="form-control" name="dateTime"  value="" placeholder="请选择日期" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" >身份ID：</label>
+                        <div class="col-sm-8">
+                            <input id="user_Id" name="user_Id"  type="text" class="form-control" placeholder="身份ID" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" >邮箱：</label>
+                        <div class="col-sm-8">
+                            <input id="mail_address"  class="form-control" name="mail_address" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-3">
+                            <button class="btn btn-primary" type="submit">保存</button>
+                            <!--<button class="btn btn-primary" type="submit">保存</button>-->
+                        </div>
+                    </div>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="js/plugins/validate/jquery.validate.min.js"></script>
+<script src="js/plugins/validate/messages_zh.min.js"></script>
+<script src="js/plugins/validate/form-validate-demo.js"></script>
+<script src="js/plugins/validate/formValidation.js"></script>
+<script src="js/plugins/validate/framework/bootstrap.js"></script>
+<script src="js/plugins/validate/moment.js"></script>
+<script type="text/javascript" src="js/plugins/validate/bootstrap-datetimepicker.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function() {
+
+//        bootstrap-datetimepicker格式修改
+        $('#datetimePicker').datetimepicker({
+            format: 'YYYY-MM-DD'
+
+
+        });
+        $('#signupForm').formValidation({
+            message: '日期不能为空',
+
+            fields: {
+
+                datetimePicker: {
+                    validators: {
+                        notEmpty: {
+                            message: '请输入有效的日期'
+                        }
+                    }
+                }
+            }
+        });
+
+        $('#datetimePicker')
+            .on('dp.change dp.show', function(e) {
+                // Validate the date when user change it
+                $('#signupForm').data('formValidation').revalidateField('#datetimePicker');
+                // You also can call it as following:
+                // $('#defaultForm').formValidation('revalidateField', 'datetimePicker');
+            });
+
+    });
+</script>
+</body>
+</html>
