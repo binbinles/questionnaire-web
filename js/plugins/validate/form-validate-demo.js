@@ -36,6 +36,14 @@
                         required: true,
                         minlength: 18,
                         maxlength: 18
+                    },
+                    user_sex: {
+                        required: true
+
+                    },
+                    datetimePicker: {
+                        required: true
+
                     }
                 },
                 messages: {
@@ -46,7 +54,18 @@
                         maxlength: icon + "Id必须18个字符,当前超过18字符"
                     },
 
-                    mail_address: icon + "请输入正确邮箱格式",
+                    // mail_address: icon + "请输入正确邮箱格式",
+                    user_sex: {
+                        required: icon + "必须选择一个性别",
+                    },
+                    mail_address: {
+                        required: icon + "请输入正确邮箱",
+                        email:icon + "请输入正确邮箱格式"
+
+                    },
+                    datetimePicker: {
+                        required:icon + "请输入有效的日期"
+                    }
 
                 }
             });

@@ -56,7 +56,7 @@
                         <div class="col-lg-5">
                             <div class="radio radio-primary" id="user_sex" >
                                 <div class="radio radio-inline">
-                                    <input type="radio" name="radio1" id="radio1" value="option1">
+                                    <input type="radio" name="user_sex" id="radio1" value="option1">
                                     <label for="radio1">
                                         男
                                     </label>
@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="radio radio-inline">
 
-                                    <input type="radio" name="radio1" id="radio2" value="option2">
+                                    <input type="radio" name="user_sex" id="radio2" value="option2">
                                     <label for="radio2">
                                         女
                                     </label>
@@ -79,7 +79,7 @@
                             出生日期：</label>
                         <div class="col-lg-5">
                             <div class="input-group date" id="datetimePicker" >
-                                <input type="text" class="form-control" name="dateTime"  value="" placeholder="请选择日期" />
+                                <input type="text" class="form-control" name="datetimePicker"  value="" placeholder="请选择日期" />
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>
@@ -115,11 +115,16 @@
 </div>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <script src="js/plugins/validate/jquery.validate.min.js"></script>
+
 <script src="js/plugins/validate/messages_zh.min.js"></script>
+
 <script src="js/plugins/validate/form-validate-demo.js"></script>
 <script src="js/plugins/validate/formValidation.js"></script>
+
 <script src="js/plugins/validate/framework/bootstrap.js"></script>
+
 <script src="js/plugins/validate/moment.js"></script>
 <script type="text/javascript" src="js/plugins/validate/bootstrap-datetimepicker.min.js"></script>
 
@@ -136,26 +141,27 @@
         });
         $('#signupForm').formValidation({
             message: '日期不能为空',
+            required: true,
 
             fields: {
 
                 datetimePicker: {
                     validators: {
                         notEmpty: {
-                            message: '请输入有效的日期'
+                            message: icon+'请输入有效的日期'
                         }
                     }
                 }
             }
         });
 
-        $('#datetimePicker')
-            .on('dp.change dp.show', function(e) {
-                // Validate the date when user change it
-                $('#signupForm').data('formValidation').revalidateField('#datetimePicker');
-                // You also can call it as following:
-                // $('#defaultForm').formValidation('revalidateField', 'datetimePicker');
-            });
+//        $('#datetimePicker')
+//            .on('dp.change dp.show', function(e) {
+//                // Validate the date when user change it
+//                $('#signupForm').data('formValidation').revalidateField('#datetimePicker');
+//                // You also can call it as following:
+//                // $('#defaultForm').formValidation('revalidateField', 'datetimePicker');
+//            });
 
     });
 </script>
