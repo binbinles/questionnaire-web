@@ -6,15 +6,29 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--<link rel="shortcut icon" href="favicon.ico">-->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/plugins/vaildate/formValidation.css"/>
-    <link rel="stylesheet" type="text/css" href="css/plugins/vaildate/default.css">
-    <!--<link rel="stylesheet" href="css/plugins/vaildate/awesome-bootstrap-checkbox.css">-->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/layui-master/build/css/layui.css">
+    <style>
+        input.error {
+            border: 1px solid #ff1b05;
+        }
 
+        label.error {
+            /*background:url("./demo/images/unchecked.gif") no-repeat 0px 0px;*/
+
+            padding-left: 16px;
+
+            padding-bottom: 2px;
+
+            font-weight: lighter;
+
+            color: #ff0000;
+        }
+
+        label.checked {
+            /*background:url("./demo/images/checked.gif") no-repeat 0px 0px;*/
+        }
+    </style>
 </head>
 <body>
 
@@ -23,7 +37,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">基本信息修改</div>
             <div class="panel-body">
-                <form id="" class="form-horizontal m-t">
+                <form id="userInfoForm" class="form-horizontal layui-form">
                     <div class="form-group">
                         <label class="col-md-2 control-label">姓名：</label>
                         <div class="col-md-8">
@@ -50,21 +64,22 @@
                                    disabled>
                         </div>
                     </div>
+                    <!----不可编辑内容结束---->
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label">性别：</label>
                         <div class="row">
-                            <div class="radio radio-primary" id="user_sex">
-                                <div class="col-sm-3">
-                                    <div class="radio radio-inline">
-                                        <input id="radio1" type="radio" name="user_sex" value="option1" checked>
-                                        <label for="radio1"> 男 </label>
+                            <label class="col-md-2 control-label">性别：</label>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="sex" value="男" title="男" checked>
+                                        </label>
                                     </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="radio radio-inline">
-                                        <input id="radio2" type="radio" name="user_sex" value="option2">
-                                        <label for="radio2">女 </label>
+                                    <div class="col-sm-4">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="sex" value="女" title="女">
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +89,8 @@
                         <label class="col-md-2 control-label">出生日期：</label>
                         <div class="col-md-8">
                             <div class="input-group date" id="datetimePicker">
-                                <input type="text" class="form-control" name="datetimePicker" placeholder="请选择日期"/>
+                                <input id="birthday" type="text" class="form-control"
+                                       name="datetimePicker" placeholder="请选择日期"/>
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
@@ -83,13 +99,15 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label">身份ID：</label>
                         <div class="col-md-8">
-                            <input id="user_Id" name="user_Id" type="text" class="form-control" placeholder="请输入身份ID">
+                            <input id="user_Id" name="user_Id" type="text" class="form-control" placeholder="请输入身份ID"
+                                   minlength="18" maxlength="18" required/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label">邮箱：</label>
                         <div class="col-md-8">
-                            <input id="mail_address" class="form-control" name="mail_address" placeholder="请输入邮箱地址">
+                            <input id="mail_address" class="form-control" name="mail_address" placeholder="请输入邮箱地址"
+                                   email="true" required/>
                         </div>
                     </div>
 
@@ -103,47 +121,41 @@
             </div>
         </div>
     </div>
-
-
 </div>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
 
-<script src="js/plugins/validate/jquery.validate.min.js"></script>
-<script src="js/plugins/validate/messages_zh.min.js"></script>
-
-<script src="js/plugins/validate/form-validate-demo.js"></script>
-<script src="js/plugins/validate/formValidation.js"></script>
-
-<script src="js/plugins/validate/framework/bootstrap.js"></script>
-
-<script src="js/plugins/validate/moment.js"></script>
-<script type="text/javascript" src="js/plugins/validate/bootstrap-datetimepicker.min.js"></script>
-
-
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/layui-master/build/layui.js"></script>
+<script src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="bower_components/jquery-validation/src/localization/messages_zh.js"></script>
 <script>
-    $(document).ready(function () {
+    $(function () {
+        layui.use(['form', 'laydate'], function () {
+            var form = layui.form(),
+                laydate = layui.laydate;
 
-//        bootstrap-datetimepicker格式修改
-        $('#datetimePicker').datetimepicker({
-            format: 'YYYY-MM-DD'
-        });
-        $('#signupForm').formValidation({
-            message: '日期不能为空',
-            required: true,
-
-            fields: {
-
-                datetimePicker: {
-                    validators: {
-                        notEmpty: {
-                            message: icon + '请输入有效的日期'
-                        }
-                    }
-                }
+            var dateOption = {
+                format: 'YYYY-MM-DD hh:mm:ss',
+                min: '1900-01-01 23:59:59',
+                max: laydate.now(),
+                istime: false,
+                isclear: true, //是否显示清空
+                istoday: false, //是否显示今天
+                issure: true, //是否显示确认
+                festival: false, //是否显示节日
+                fixed: false, //是否固定在可视区域
+                zIndex: 99999999 //css z-index
+            };
+            document.getElementById('birthday').onclick = function () {
+                dateOption.elem = this;
+                laydate(dateOption);
             }
         });
+        $('#userInfoForm').validate();
+
     });
+
+
 </script>
 </body>
 </html>
