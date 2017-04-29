@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板管理</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    bootstrap-table
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--toolbar-->
+                <div id="tableToolbar" class="btn-group hidden-xs" role="group">
+                    <button id="multiTemplateBtn" type="button" class="btn btn-outline btn-default">
+                        <i class="glyphicon glyphicon-briefcase" aria-hidden="true">批量模板</i>
+                    </button>
+                    <button id="multiDelBtn" type="button" class="btn btn-outline btn-default">
+                        <i class="glyphicon glyphicon-trash" aria-hidden="true">批量删除</i>
+                    </button>
+                    <button id="multiShareBtn" type="button" class="btn btn-outline btn-default">
+                        <i class="glyphicon glyphicon-share" aria-hidden="true">批量共享</i>
+                    </button>
+                </div>
+                <table id="demoTable"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+
+<script>
+    $(function () {
+        $('#demoTable').bootstrapTable({
+            striped: true,
+            clickToSelect: true,
+            undefinedText: '--',
+            cache: false,
+            sortName: ['Item Price', '第三列'],
+            sortOrder: 'desc',
+
+            pagination: true,
+            paginationLoop: true,
+            pageList: [10, 20, 30],
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            sidePagination: 'client',
+
+            search: true,
+            searchAlign: 'right',
+            searchOnEnterKey: true,
+
+            toolbar: '#tableToolbar',
+
+            showColumns: true,
+            showRefresh: true,
+            showToggle: true,
+            minimumCountColumns: 3,
+            detailView: true,
+            url: 'testJsonData/data_demo_1.json',
+            columns: [{
+                checkbox: true,
+                clickToSelect: true,
+                titleTooltip: '123'
+            }, {
+                field: 'id',
+                title: 'Item ID'
+            }, {
+                field: 'name',
+                title: 'Item Name',
+                sortable: true
+            }, {
+                field: 'price',
+                title: 'Item Price'
+            }, {
+                field: 'column1',
+                title: '第一列'
+            }, {
+                field: 'column2',
+                title: '第二列'
+            }, {
+                field: 'column3',
+                title: '第三列'
+            }],
+            remove: function () {
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

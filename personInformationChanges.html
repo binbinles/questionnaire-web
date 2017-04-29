@@ -8,27 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/layui-master/build/css/layui.css">
-    <style>
-        input.error {
-            border: 1px solid #ff1b05;
-        }
-
-        label.error {
-            /*background:url("./demo/images/unchecked.gif") no-repeat 0px 0px;*/
-
-            padding-left: 16px;
-
-            padding-bottom: 2px;
-
-            font-weight: lighter;
-
-            color: #ff0000;
-        }
-
-        label.checked {
-            /*background:url("./demo/images/checked.gif") no-repeat 0px 0px;*/
-        }
-    </style>
 </head>
 <body>
 
@@ -113,8 +92,12 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-5 col-md-4">
-                            <button class="btn btn-danger btn-lg" type="reset">重置</button>
-                            <button class="btn btn-primary btn-lg" type="submit">保存</button>
+                            <button class="btn btn-danger btn-lg" type="reset" data-toggle="tooltip"
+                                    title="点击重置输入的内容">重置
+                            </button>
+                            <button class="btn btn-primary btn-lg" type="submit" data-toggle="tooltip"
+                                    title="提交数据保存">保存
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -151,6 +134,26 @@
                 laydate(dateOption);
             }
         });
+        //修改校验样式
+        $.validator.setDefaults({
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            },
+            success: function (element) {
+                element.closest('.form-group').removeClass('has-error').addClass('has-success');
+            },
+            errorElement: "span",
+            errorPlacement: function (error, element) {
+                if (element.is(":radio") || element.is(":checkbox")) {
+                    error.appendTo(element.parent().parent().parent());
+                } else {
+                    error.appendTo(element.parent());
+                }
+            },
+            errorClass: "help-block m-b-none",
+            validClass: "help-block m-b-none"
+        });
+
         $('#userInfoForm').validate();
 
     });
