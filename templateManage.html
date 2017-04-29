@@ -5,6 +5,7 @@
     <title>模板管理</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css">
 </head>
 <body>
 <div class="container">
@@ -18,9 +19,9 @@
             <div class="panel-body">
                 <!--toolbar-->
                 <div id="tableToolbar" class="btn-group hidden-xs" role="group">
-                    <button id="multiTemplateBtn" type="button" class="btn btn-outline btn-default">
-                        <i class="glyphicon glyphicon-briefcase" aria-hidden="true">批量模板</i>
-                    </button>
+                    <!--<button id="multiTemplateBtn" type="button" class="btn btn-outline btn-default">-->
+                    <!--<i class="glyphicon glyphicon-briefcase" aria-hidden="true">批量模板</i>-->
+                    <!--</button>-->
                     <button id="multiDelBtn" type="button" class="btn btn-outline btn-default">
                         <i class="glyphicon glyphicon-trash" aria-hidden="true">批量删除</i>
                     </button>
@@ -38,16 +39,22 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
 <script src="bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+
 
 <script>
+    var $table = $('#demoTable');
+    var $multiDelBtn = $('#multiDelBtn');
+
     $(function () {
-        $('#demoTable').bootstrapTable({
+        $table.bootstrapTable({
             striped: true,
             clickToSelect: true,
             undefinedText: '--',
             cache: false,
             sortName: ['Item Price', '第三列'],
             sortOrder: 'desc',
+            height: getHeight(),
 
             pagination: true,
             paginationLoop: true,
@@ -65,8 +72,11 @@
             showColumns: true,
             showRefresh: true,
             showToggle: true,
+            showPaginationSwitch: true,
+
             minimumCountColumns: 3,
             detailView: true,
+            detailFormatter: detailFormatter,
             url: 'testJsonData/data_demo_1.json',
             columns: [{
                 checkbox: true,
@@ -76,10 +86,10 @@
                 field: 'id',
                 title: 'Item ID'
             }, {
-                field: 'name',
-                title: 'Item Name',
-                sortable: true
-            }, {
+//                field: 'name',
+//                title: 'Item Name',
+//                sortable: true
+//            }, {
                 field: 'price',
                 title: 'Item Price'
             }, {
@@ -91,12 +101,79 @@
             }, {
                 field: 'column3',
                 title: '第三列'
-            }],
-            remove: function () {
-
-            }
+            }, {
+                title: '操作',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            }]
         });
     });
+
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            alert('You click like action, row: ' + JSON.stringify(row));
+        },
+        'click .remove': function (e, value, row, index) {
+            swal({
+                title: "Error!",
+                text: "Here's my error message!",
+                type: "error",
+                confirmButtonText: "Cool"
+            });
+            $table.bootstrapTable('remove', {
+                field: 'id',
+                values: [row.id]
+            });
+        }
+    };
+
+    //批量删除处理
+    $multiDelBtn.on('click', function () {
+        var ids = getIdSelections();
+        $table.bootstrapTable('remove', {
+            field: 'id',
+            values: ids
+        });
+        alert(ids);
+        //ajax后台数据处理
+//        $multiDelBtn.prop('disabled', true);
+    });
+
+    //获取批量选中的id
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+
+    //操作按钮格式设置
+    function operateFormatter(value, row, index) {
+        console.log(value + "||" + row + "||" + index);
+        return [
+            '<a class="remove btn btn-sm btn-link" href="javascript:void(0)" data-toggle="tooltip" title="喜欢">',
+            '<i class="glyphicon glyphicon-remove"></i> 删除',
+            '</a>',
+            '<a class="like btn btn-sm btn-link" href="javascript:void(0)" data-toggle="tooltip" title="喜欢">',
+            '<i class="glyphicon glyphicon-random"></i> 添加到我的模板',
+            '</a>'
+        ].join('');
+    }
+
+    //详细信息
+    function detailFormatter(index, row) {
+        var html = [];
+        html.push('<p><b>name:</b> ' + row.name + '</p>');
+//        $.each(row, function (key, value) {
+//            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+//        });
+        return html.join('');
+    }
+
+    //获取屏幕高度
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
 </script>
 </body>
 </html>
