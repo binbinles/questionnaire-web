@@ -10,72 +10,66 @@
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="plugins/layui/css/layui.css">
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-
+    <style>
+        .agile-detail {
+            margin-top: 5px;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="wrapper wrapper-content">
     <div class="row">
 
         <div class="panel-body  col-sm-4" style="padding-bottom: 0px">
-            <div >
-                <div class="panel panel-default">
-                    <div class="panel-heading">最新公告
+            <div class="panel panel-success">
+                <div class="panel-heading">最新公告
 
-                    </div>
-                    <div class="panel-body">
-                        <ul class="sortable-list connectList agile-list">
+                </div>
+                <div class="panel-body">
+                    <ul class="sortable-list connectList agile-list">
 
-                            <li class="info-element">
-                                <div class="agile-detail">
-                                    <a href="#" class="pull-right btn btn-success">点击查看详情</a>
+                        <li class="info-element">
+                            <div class="agile-detail">
+                                <a href="#" class="pull-right btn btn-success">点击查看详情</a>
 
-                                    <div class="panel-title">2015.09.10</div>
-                                </div>
-                                <div class="panel-info">协同教导处搞好助学金、减免教科书费的工作。</div>
-
-
-                            </li>
-                            <li class="danger-element">
-                                <div class="agile-detail">
-                                    <a href="#" class="pull-right btn btn-success">点击查看详情</a>
-                                    <div class="panel-title">2015.09.10</div>
-                                </div>
-                                <div class="panel-info">协同教导处搞好助学金、减免教科书费的工作。</div>
-
-                            </li>
-                            <li class="info-element">
-                                <div class="agile-detail">
-                                    <a href="#" class="pull-right btn btn-success">点击查看详情</a>
-                                    <div class="panel-title">2015.09.10</div>
-                                </div>
-                                <div class="panel-info">协同教导处搞好助学金、减免教科书费的工作。</div>
-
-                            </li>
-                            <li class="danger-element">
-                                <div class="agile-detail">
-                                    <a href="#" class="pull-right btn btn-success">点击查看详情</a>
-                                    <div class="panel-title">2015.09.10</div>
-                                </div>
-                                <div class="panel-info">协同教导处搞好助学金、减免教科书费的工作。</div>
-
-                            </li>
-                            <li class="info-element">
-                                <div class="agile-detail">
-                                    <a href="#" class="pull-right btn btn-success">点击查看详情</a>
-                                    <div class="panel-title">2015.09.10</div>
-                                </div>
-                                <div class="panel-info">协同教导处搞好助学金、减免教科书费的工作。</div>
-
-                            </li>
+                                <div class="panel-title">2015.09.10</div>
+                            </div>
+                            <div class="panel-info">公告内容简介</div>
 
 
-                        </ul>
+                        </li>
+                        <li class="danger-element">
+                            <div class="agile-detail">
+                                <a href="#" class="pull-right btn btn-success">点击查看详情</a>
+                                <div class="panel-title">2015.09.10</div>
+                            </div>
+                            <div class="panel-info">公告内容简介</div>
 
-                    </div>
+                        </li>
+                        <li class="info-element">
+                            <div class="agile-detail">
+                                <a href="#" class="pull-right btn btn-success">点击查看详情</a>
+                                <div class="panel-title">2015.09.10</div>
+                            </div>
+                            <div class="panel-info">公告内容简介</div>
+
+                        </li>
+                        <li class="danger-element">
+                            <div class="agile-detail">
+                                <a href="#" class="pull-right btn btn-success">点击查看详情</a>
+                                <div class="panel-title">2015.09.10</div>
+                            </div>
+                            <div class="panel-info">公告内容简介</div>
+                        </li>
+
+
+
+                    </ul>
 
                 </div>
 
@@ -83,64 +77,138 @@
 
         </div>
         <div class="panel-body  col-sm-4" style="padding-bottom: 0px">
-            <div >
-                <div class="panel panel-default">
-                    <div class="panel-heading">最新公告
+            <div class="panel panel-primary">
+                <div class="panel-heading">问卷进度（指创建的问卷）
 
-                    </div>
-                    <div class="panel-body">
-                        <div id="vertical-timeline" class="vertical-container light-timeline">
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon navy-bg">
-                                    <i class="fa fa-briefcase"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>会议</h2>
-                                    <p>上一年的销售业绩发布会。总结产品营销和销售趋势及销售的现状。
-                                    </p>
-                                    <a href="#" class="btn btn-sm btn-primary"> 更多信息</a>
-                                    <span class="vertical-date">
-                                        今天 <br>
-                                        <small>2月3日</small>
-                                    </span>
-                                </div>
+                </div>
+                <div class="panel-body timeline">
+                    <div class="timeline-item">
+                        <div class="row">
+                            <div class="col-xs-3 date">
+                                <i class="fa fa-file-text"></i> 6:00
+                                <br>
+                                <small class="text-navy">2017/04/30</small>
                             </div>
+                            <div class="col-xs-7 content no-top-border">
+                                <p class="m-b-xs"><strong>疟疾调查</strong>
+                                    <small class="m-r-n-xl"><a class="pull-right" href="#"> 查看所有数据</a></small>
+                                </p>
 
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon blue-bg">
-                                    <i class="fa fa-file-text"></i>
-                                </div>
+                                <p>创建中</p>
 
-                                <div class="vertical-timeline-content">
-                                    <h2>给张三发送文档</h2>
-                                    <p>发送上年度《销售业绩报告》</p>
-                                    <a href="#" class="btn btn-sm btn-success"> 下载文档 </a>
-                                    <span class="vertical-date">
-                                        今天 <br>
-                                        <small>2月3日</small>
-                                    </span>
-                                </div>
                             </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon lazur-bg">
-                                    <i class="fa fa-coffee"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>喝咖啡休息</h2>
-                                    <p>喝咖啡啦，啦啦啦~~</p>
-                                    <a href="#" class="btn btn-sm btn-info">更多</a>
-                                    <span class="vertical-date"> 昨天 <br><small>2月2日</small></span>
-                                </div>
-                            </div>
-
                         </div>
-
-
-
                     </div>
+                    <div class="timeline-item">
+                        <div class="row">
+                            <div class="col-xs-3 date">
+                                <i class="fa fa-file-text"></i> 7:00
+                                <br>
+                                <small class="text-navy">2017/04/30</small>
+                            </div>
+                            <div class="col-xs-7 content">
+                                <p class="m-b-xs"><strong>寄生虫问卷</strong>
+                                    <small class="m-r-n-xl"><a class="pull-right" href="#"> 查看所有数据</a></small>
+                                </p>
+                                <p>创建中</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="row">
+                            <div class="col-xs-3 date">
+                                <i class="fa fa-file-text"></i> 8:00
+                                <br>
+                                <small class="text-navy">2017/04/30</small>
+                            </div>
+                            <div class="col-xs-7 content">
+                                <p class="m-b-xs"><strong>其他疾病</strong>
+                                    <small class="m-r-n-xl"><a class="pull-right" href="#"> 查看所有数据</a></small>
+                                </p>
+                                <p>
+                                    创建中
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="row">
+                            <div class="col-xs-3 date">
+                                <i class="fa fa-file-text"></i> 11:00
+                                <br>
+                                <small class="text-navy">2017/04/30</small>
+                            </div>
+                            <div class="col-xs-7 content">
+                                <p class="m-b-xs"><strong>xxx疾病</strong>
+                                    <small class="m-r-n-xl"><a class="pull-right" href="#"> 查看所有数据</a></small>
+                                </p>
+                                <p>
+                                    创建中
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="panel-body  col-sm-4" style="padding-bottom: 0px">
+            <div class="panel panel-success">
+                <div class="panel-heading">数据报告
+
+                </div>
+                <div class="panel-body">
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <div class="panel-title">问卷名</div>
+                            <br>
+
+                            <!--问卷收集进度条-->
+                            <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                                <div class="layui-progress-bar layui-bg-blue" lay-percent="50%"></div>
+                            </div>
+                            <br>
+
+                            <small class="m-r"><a class="pull-right btn btn-success" href="#"> 查看所有数据</a> </small>
+                            <small class="block text-muted"><i class="fa fa-clock-o"></i>时间</small>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="panel-title">问卷名</div>
+                            <br>
+
+                            <!--问卷收集进度条-->
+                            <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                                <div class="layui-progress-bar layui-bg-blue" lay-percent="10%"></div>
+                            </div>
+                            <br>
+
+                            <small class="m-r"><a class="pull-right btn btn-success" href="#"> 查看所有数据</a> </small>
+                            <small class="block text-muted"><i class="fa fa-clock-o"></i>时间</small>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="panel-title">问卷名</div>
+                            <br>
+
+                            <!--问卷收集进度条-->
+                            <div class="layui-progress layui-progress-big" lay-showPercent="yes">
+                                <div class="layui-progress-bar layui-bg-blue" lay-percent="30%"></div>
+                            </div>
+                            <br>
+
+                            <small class="m-r"><a class="pull-right btn btn-success" href="#"> 查看所有数据</a> </small>
+                            <small class="block text-muted"><i class="fa fa-clock-o"></i>时间</small>
+                        </li>
+
+
+                    </ul>
+
 
                 </div>
 
@@ -150,8 +218,15 @@
 
 
     </div>
+</div>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<script src="plugins/layui/layui.js"></script>
+<script>
+    //注意进度条依赖 element 模块，否则无法进行正常渲染和功能性操作
+    layui.use('element', function(){
+        var element = layui.element();
+    });
+</script>
 </body>
 </html>
