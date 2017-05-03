@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看公告</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <!--<link rel="shortcut icon" href="/WEB-INF/img/favicon.ico"-->
+          <!--th:href="@{/img/favicon.ico}"/>-->
+    <!--<link rel="stylesheet" href="/WEB-INF/css/bootstrap.min.css"-->
+          <!--th:href="@{/css/bootstrap.min.css}">-->
+    <!--<link rel="stylesheet" href="/WEB-INF/css/plugins/bootstrap-table/bootstrap-table.min.css"-->
+          <!--th:href="@{/css/plugins/bootstrap-table/bootstrap-table.min.css}">-->
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    公告信息
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--toolbar-->
+                <div id="tableToolbar" class="btn-group hidden-xs" role="group">
+                    <button id="newNotice" type="button" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-plus" aria-hidden="true"> 新建公告</i>
+                    </button>
+                </div>
+                <table id="noticeInfoTable"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script src="/WEB-INF/js/jquery.min.js"-->
+        <!--th:src="@{/js/jquery.min.js}"></script>-->
+<!--<script src="/WEB-INF/js/bootstrap.min.js"-->
+        <!--th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--<script src="/WEB-INF/js/plugins/bootstrap-table/bootstrap-table.min.js"-->
+        <!--th:src="@{/js/plugins/bootstrap-table/bootstrap-table.min.js}"></script>-->
+<!--<script src="/WEB-INF/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"-->
+        <!--th:src="@{/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js}"></script>-->
+<!--<script src="../../js/plugins/layer/layer.min.js"-->
+        <!--th:src="@{/js/plugins/layer/layer.min.js}"></script>-->
+<!--<script src="../../js/myJs/responseAnalyze.js"-->
+        <!--th:src="@{/js/myJs/responseAnalyze.js}"></script>-->
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+<script src="bower_components/bootstrap-table/src/locale/bootstrap-table-zh-CN.js"></script>
+<script src="bower_components/layui-master/build/lay/modules/layer.js"></script>
+<script>
+    var $table = $('#noticeInfoTable');
+    //新建公告按钮
+    var $newNoticeBtn = $('#newNotice');
+    //新建公告跳转
+    $newNoticeBtn.on('click', function () {
+        window.location.href="index.html";
+    });
+
+    $(function () {
+        $table.bootstrapTable({
+            url: 'testJsonData/data_demo_1.json',
+            method: 'post',
+            dataType: 'json',
+            cache: false,
+
+            striped: true,
+//            clickToSelect: true,
+            undefinedText: '--',
+            sortName: ['questionnaireTitle', 'questionnaireSubtitle'],
+            sortOrder: 'desc',
+            height: getHeight(),
+
+            pagination: true,
+            paginationLoop: true,
+            pageList: [10, 20, 30],
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            sidePagination: 'client',
+
+            search: true,
+            searchAlign: 'left',
+            searchOnEnterKey: true,
+
+            toolbar: '#tableToolbar',
+
+            showColumns: true,
+            showRefresh: true,
+            showToggle: true,
+            showPaginationSwitch: true,
+
+            minimumCountColumns: 3,
+            detailView: true,
+            detailFormatter: detailFormatter,
+            columns: [{
+                checkbox: true,
+                clickToSelect: true
+            }, {
+                field: 'questionnaireId',
+                title: '问卷ID',
+                sortable: true
+            }, {
+                field: 'questionnaireTitle',
+                title: '问卷标题',
+                sortable: true
+            }, {
+                field: 'questionnaireSubtitle',
+                title: '问卷副标题',
+                sortable: true
+            }, {
+                title: '操作',
+                align: 'center',
+                events: operateEvents,
+                formatter: operateFormatter
+            }]
+        });
+    });
+
+    var deleteNoticeUrl = '';
+    //单份处理
+    window.operateEvents = {
+        //永久删除
+        'click .remove': function (e, value, row, index) {
+            layerConfirm('确认删除公告吗?', row, deleteNoticeUrl);
+        },
+        //查看公告
+        'click .scanNotice': function (e, value, row, index) {
+            //查看公告处理
+        }
+    };
+
+    /*弹窗层*/
+    function layerMsg(confirmText, ids, url) {
+        layer.confirm(confirmText, {
+                icon: 3,
+                btn: ['确定', '取消']
+            },
+            function (index) {
+                accessServer(ids, url);
+                layer.close(index);
+            },
+            function () {
+                layer.msg('取消成功！');
+            }
+        )
+    }
+
+    function layerConfirm(confirmText, row, url) {
+        layer.confirm(confirmText, {
+                icon: 3,
+                btn: ['确定', '取消']
+            },
+            function (index) {
+                var ids = [];
+                ids.push(row.questionnaireId);
+                accessServer(ids, url);
+                layer.close(index);
+            },
+            function () {
+                layer.msg('取消成功！');
+            }
+        )
+    }
+
+    /**
+     * 异步加载服务器
+     * @param questionnaireIds
+     * @param url
+     */
+    function accessServer(questionnaireIds, url) {
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: {questionnaireIds: questionnaireIds},
+            dataType: 'text',
+            traditional: true,
+            success: function (data) {
+                analyzeResponse(data, url, questionnaireIds);
+            },
+            error: function () {
+                layer.msg('操作失败，出现点问题，刷新看看？', {icon: 2});
+            }
+        });
+        return true;
+    }
+
+    /**
+     * 解析回复数据包
+     * @param data
+     * @param url
+     * @param questionnaireIds
+     */
+    function analyzeResponse(data, url, questionnaireIds) {
+        var responsePkt = JSON.parse(data);
+        if (responsePkt.code === 200) {
+            switch (url) {
+                case deleteNoticeUrl://删除公告
+                    if (responsePkt.code === 200) {
+                        $table.bootstrapTable('remove', {
+                            field: 'questionnaireId',
+                            values: questionnaireIds
+                        });
+                        layer.msg('公告已删除！', {icon: 1});
+                    }
+                    dealGlobalError(responsePkt);
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
+
+    //获取批量选中的id
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.questionnaireId;
+        });
+    }
+
+    //操作按钮格式设置
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="scanNotice btn btn-sm btn-link" href="javascript:void(0)" data-toggle="tooltip" title="查看公告">',
+            '<i class="glyphicon glyphicon-fullscreen"></i> 查看',
+            '</a>',
+            '<a class="remove btn btn-sm btn-link" href="javascript:void(0)" data-toggle="tooltip" title="删除公告">',
+            '<i class="glyphicon glyphicon-remove"></i> 删除',
+            '</a>'
+        ].join('');
+    }
+
+    //详细信息格式
+    function detailFormatter(index, row) {
+        var html = [];
+        html.push('<p><i>问卷描述:</i> ' + row.questionnaireDescription + '</p>');
+        return html.join('');
+    }
+
+    //获取屏幕高度
+    function getHeight() {
+        return $(window).height() - $('.panel-body').outerHeight(true);
+    }
+</script>
+
+</body>
+</html>
